@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waste Reduction Calculator</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #e3f2fd, #b2ebf2);
+        }
+        .container {
+            max-width: 700px;
+            background: whitesmoke;
+            padding: 20px;
+            margin-top: 50px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+        .result-box {
+            background: #c1ddf8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #155724;
+        }
+        .description {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .form-control:focus {
+            border: 2px solid #3498db;
+            box-shadow: 0 0 10px rgba(173, 218, 248, 0.5);
+            transition: 0.3s ease-in-out;
+        }
+        .form-control {
+            transition: border 0.3s ease-in-out;
+        }
+        .form-control:blur {
+            border: 1px solid #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center">
+        <h2 class="mb-3">Waste Reduction Calculator</h2>
+        <p class="description">
+            Every small step towards waste reduction contributes to a cleaner planet.  
+            Use this calculator to track your impact and encourage sustainable habits.  
+            Together, we can build a greener future!
+        </p>
+        <div class="mb-3">
+            <label for="recyclable" class="form-label">Recyclable Waste (kg per month):</label>
+            <input type="number" id="recyclable" class="form-control" placeholder="Enter kg">
+        </div>
+        <div class="mb-3">
+            <label for="compostable" class="form-label">Compostable Waste (kg per month):</label>
+            <input type="number" id="compostable" class="form-control" placeholder="Enter kg">
+        </div>
+        <div class="mb-3">
+            <label for="plastic" class="form-label">Plastic Waste Reduced (kg per month):</label>
+            <input type="number" id="plastic" class="form-control" placeholder="Enter kg">
+        </div>
+        <div class="mb-3">
+            <label for="glass" class="form-label">Glass Waste Reduced (kg per month):</label>
+            <input type="number" id="glass" class="form-control" placeholder="Enter kg">
+        </div>
+        <button class="btn btn-success" onclick="calculateReduction()">Calculate</button>
+        <div id="result" class="result-box" style="display: none;"></div>
+    </div>
+    <script>
+        function calculateReduction() {
+            let recyclable = parseFloat(document.getElementById('recyclable').value) || 0;
+            let compostable = parseFloat(document.getElementById('compostable').value) || 0;
+            let plastic = parseFloat(document.getElementById('plastic').value) || 0;
+            let glass = parseFloat(document.getElementById('glass').value) || 0;
+            
+            let totalReduction = recyclable + compostable + plastic + glass;
+            let co2Reduction = (plastic * 1.7 + glass * 0.9).toFixed(2);
+            let costSavings = (totalReduction * 0.5).toFixed(2);
+            
+            document.getElementById('result').innerHTML = `
+                <h4 class="highlight">Results:</h4>
+                <p><strong>Total Waste Reduced:</strong> ${totalReduction} kg per month</p>
+                <p><strong>Estimated CO₂ Emissions Reduction:</strong> ${co2Reduction} kg</p>
+                <p><strong>Potential Cost Savings:</strong> $${costSavings} per month</p>
+                <p class="highlight">
+                    Great job! Every kilogram of waste reduced brings us closer to a more sustainable world.  
+                    Keep up the effort and inspire others to join the movement!
+                </p>
+            `;
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

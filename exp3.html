@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Us - Clean Neighborhood</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e3f2fd, #b2ebf2);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            width: 40%;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 12px;
+            text-align: left;
+        }
+        label {
+            font-size: 12px;
+            font-weight: bold;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 3px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        input:focus, textarea:focus, select:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.8);
+            background-color: #e3f2fd;
+            outline: none;
+        }
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(45deg, #3498db, #2ecc71);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background: linear-gradient(45deg, #2ecc71, #3498db);
+        }
+        .error {
+            color: red;
+            font-size: 10px;
+            margin-top: 3px;
+            display: block;
+        }
+        .input-error {
+            border-color: red !important;
+        }
+        #successMessage {
+            color: green;
+            font-size: 16px;
+            display: none;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Join the Clean Neighborhood Initiative</h1>
+        <p>Sign up today and be part of a greener community!</p>
+
+        <p id="successMessage">You have successfully joined the Clean Neighborhood Initiative!</p>
+
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name">
+                <span class="error" id="nameError"></span>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email">
+                <span class="error" id="emailError"></span>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" pattern="[0-9]{10}">
+                <span class="error" id="phoneError"></span>
+            </div>
+            <div class="form-group">
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob">
+                <span class="error" id="dobError"></span>
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender">
+                    <option value="">Select</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+                <span class="error" id="genderError"></span>
+            </div>
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address">
+                <span class="error" id="addressError"></span>
+            </div>
+            <div class="form-group">
+                <label for="availability">Availability:</label>
+                <select id="availability" name="availability">
+                    <option value="">Select</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="bi-weekly">Bi-Weekly</option>
+                    <option value="monthly">Monthly</option>
+                </select>
+                <span class="error" id="availabilityError"></span>
+            </div>
+            <div class="form-group">
+                <label for="skills">Skills/Expertise:</label>
+                <input type="text" id="skills" name="skills">
+                <span class="error" id="skillsError"></span>
+            </div>
+            <div class="form-group">
+                <label for="emergencyContact">Emergency Contact Number:</label>
+                <input type="tel" id="emergencyContact" name="emergencyContact" pattern="[0-9]{10}">
+                <span class="error" id="emergencyContactError"></span>
+            </div>
+            <div class="form-group">
+                <label for="communication">Preferred Communication Mode:</label>
+                <select id="communication" name="communication">
+                    <option value="">Select</option>
+                    <option value="email">Email</option>
+                    <option value="phone">Phone Call</option>
+                    <option value="text">Text Message</option>
+                </select>
+                <span class="error" id="communicationError"></span>
+            </div>
+            <div class="form-group">
+                <label for="participation">How would you like to contribute?</label>
+                <select id="participation" name="participation">
+                    <option value="">Select</option>
+                    <option value="clean-up">Community Clean-Up</option>
+                    <option value="awareness">Awareness Campaigns</option>
+                    <option value="recycling">Recycling Programs</option>
+                    <option value="other">Other</option>
+                </select>
+                <span class="error" id="participationError"></span>
+            </div>
+            <div class="form-group">
+                <label for="message">Why do you want to join?</label>
+                <textarea id="message" name="message" rows="3"></textarea>
+                <span class="error" id="messageError"></span>
+            </div>
+            <button type="submit" class="submit-btn">Join Now</button>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#signupForm').submit(function(event) {
+                event.preventDefault();
+                let valid = true;
+                $('.error').text('');
+                $('input, select, textarea').removeClass('input-error');
+
+                $('input, select, textarea').each(function() {
+                    if ($(this).val().trim() === '') {
+                        $(this).next('.error').text('This field is required');
+                        $(this).addClass('input-error');
+                        valid = false;
+                    }
+                });
+
+                if ($('#phone').val().length !== 10) {
+                    $('#phoneError').text('Enter a 10-digit phone number');
+                    $('#phone').addClass('input-error');
+                    valid = false;
+                }
+                if ($('#emergencyContact').val().length !== 10) {
+                    $('#emergencyContactError').text('Enter a 10-digit emergency contact');
+                    $('#emergencyContact').addClass('input-error');
+                    valid = false;
+                }
+
+                if (valid) {
+                    $('#signupForm').hide();
+                    $('#successMessage').fadeIn();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
